@@ -1,9 +1,7 @@
-import { useId } from 'react'
-
 /**
  * Marca original do ONE G STUDIO — o monograma "1+O+G":
- * um anel em "G" (gradiente laranja→ciano) com o "1" ao centro.
- * Desenho próprio em SVG, leve e escalável.
+ * anel "G" branco com o "1" laranja ao centro (o único acento da marca).
+ * Desenho próprio em SVG, leve e escalável. Cores sólidas, sem gradientes.
  */
 
 interface LogoMarkProps {
@@ -14,8 +12,6 @@ interface LogoMarkProps {
 }
 
 export function LogoMark({ size = 36, className, title }: LogoMarkProps) {
-  // id único por instância — evita colisão de gradientes quando há várias marcas na página
-  const gradientId = useId()
   return (
     <svg
       width={size}
@@ -28,22 +24,15 @@ export function LogoMark({ size = 36, className, title }: LogoMarkProps) {
       aria-hidden={title ? undefined : true}
       focusable="false"
     >
-      <defs>
-        <linearGradient id={gradientId} x1="4" y1="4" x2="44" y2="44" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#FF7A18" />
-          <stop offset="0.55" stopColor="#FF7A18" />
-          <stop offset="1" stopColor="#00D9FF" />
-        </linearGradient>
-      </defs>
-      {/* Anel "G" com abertura à direita e barra para o centro */}
+      {/* Anel "G" com abertura à direita e barra para o centro — branco */}
       <path
         d="M32.9 11.3A15.5 15.5 0 1 0 39.5 24H31"
-        stroke={`url(#${gradientId})`}
+        stroke="#F5F5F7"
         strokeWidth="3.4"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      {/* O "1" ao centro */}
+      {/* O "1" ao centro — laranja, o acento único */}
       <path
         d="M16.2 19.8 21 15.4V33"
         stroke="#FF7A18"
@@ -60,17 +49,14 @@ interface LogoProps {
   withWordmark?: boolean
 }
 
-/** Marca + nome do estúdio. */
-export function Logo({ size = 36, withWordmark = true }: LogoProps) {
+/** Marca + nome do estúdio (grotesk, tracking apertado). */
+export function Logo({ size = 30, withWordmark = true }: LogoProps) {
   return (
-    <span className="inline-flex items-center gap-2.5">
+    <span className="inline-flex items-center gap-3">
       <LogoMark size={size} />
       {withWordmark && (
-        <span className="flex flex-col leading-none">
-          <span className="font-display text-[15px] font-bold tracking-[0.08em]">ONE&nbsp;G</span>
-          <span className="mt-1 font-display text-[10px] font-medium tracking-[0.42em] text-mist">
-            STUDIO
-          </span>
+        <span className="font-display text-[13px] font-semibold uppercase leading-none tracking-[0.06em] text-ink">
+          One&nbsp;G&nbsp;Studio
         </span>
       )}
     </span>

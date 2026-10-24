@@ -2,26 +2,29 @@ import type { AppInfo } from '../types'
 
 interface AppIconProps {
   app: AppInfo
-  size?: 'sm' | 'lg'
+  size?: 'xs' | 'sm' | 'lg'
   /** true para o ícone principal de uma página (nunca lazy). */
   eager?: boolean
   className?: string
 }
 
+const DIMS = {
+  xs: { tile: 'h-7 w-7', img: 'h-[22px] w-[22px]', px: 22 },
+  sm: { tile: 'h-10 w-10', img: 'h-8 w-8', px: 32 },
+  lg: { tile: 'h-16 w-16', img: 'h-[52px] w-[52px]', px: 52 },
+} as const
+
 /**
- * Tile do ícone do app. Usa o artefacto REAL de cada projeto
- * (public/icons — ver README "Replacing placeholder art") sobre um tile
- * com gradiente subtil da marca. Decorativo: o nome fica adjacente.
+ * Tile do ícone do app — quadrado, 1px de borda, raio 2px.
+ * Usa o artefacto REAL de cada projeto (public/icons). Decorativo:
+ * o nome fica sempre adjacente ao ícone.
  */
 export function AppIcon({ app, size = 'sm', eager = false, className = '' }: AppIconProps) {
-  const tile = size === 'lg' ? 'h-24 w-24' : 'h-14 w-14'
-  const img = size === 'lg' ? 'h-[4.5rem] w-[4.5rem]' : 'h-10 w-10'
-  const px = size === 'lg' ? 72 : 40
-
+  const { tile, img, px } = DIMS[size]
   return (
     <span
       aria-hidden="true"
-      className={`card-sheen relative inline-flex ${tile} shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-gradient-to-br from-primary/[0.14] via-surface to-secondary/[0.08] shadow-card ${className}`}
+      className={`inline-flex ${tile} shrink-0 items-center justify-center rounded-[2px] border border-line bg-raised p-[3px] ${className}`}
     >
       <img
         src={app.icone}
@@ -30,7 +33,7 @@ export function AppIcon({ app, size = 'sm', eager = false, className = '' }: App
         height={px}
         loading={eager ? 'eager' : 'lazy'}
         decoding="async"
-        className={`${img} rounded-xl object-cover`}
+        className={`${img} rounded-[1px] object-cover`}
       />
     </span>
   )

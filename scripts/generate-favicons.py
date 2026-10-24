@@ -14,7 +14,8 @@ a mesma geometria em raster para navegadores/Disney-launchers que não usam SVG.
 from PIL import Image, ImageDraw
 
 ORANGE = (255, 122, 24, 255)
-BG = (11, 13, 16, 255)
+WHITE = (245, 245, 247, 255)
+BG = (10, 10, 11, 255)  # #0A0A0B — fundo do novo sistema
 SS = 4  # supersampling para anti-aliasing suave
 
 
@@ -32,13 +33,13 @@ def draw_mark(draw: ImageDraw.ImageDraw, p: int, scale: float):
     f = scale  # 1 unidade do viewBox -> f px
     ring_w = max(2, int(3.4 * f))
 
-    # Anel "G": tudo exceto a abertura a direita (entre -55° e 0°)
+    # Anel "G": tudo exceto a abertura a direita (entre -55° e 0°) — branco
     r = 15.5 * f
     bbox = [c - r, c - r, c + r, c + r]
-    draw.arc(bbox, start=0, end=305, fill=ORANGE, width=ring_w)
+    draw.arc(bbox, start=0, end=305, fill=WHITE, width=ring_w)
 
-    # Barra do G: do fim do arco (direita) para o centro
-    round_line(draw, (c + r, c), (c + 7 * f, c), ORANGE, ring_w)
+    # Barra do G: do fim do arco (direita) para o centro — branco
+    round_line(draw, (c + r, c), (c + 7 * f, c), WHITE, ring_w)
 
     # O "1": bandeira + haste
     one_w = max(2, int(3.4 * f))
