@@ -28,7 +28,12 @@ export interface AppInfo {
   status: AppStatus
 }
 
+/** Identificador do item de navegação — o rótulo vem do dicionário i18n. */
+export type NavId = 'projects' | 'studio' | 'contact'
+
 export interface NavItem {
+  id: NavId
+  /** Rótulo de recurso (o site usa os dicionários i18n; ver src/i18n). */
   label: string
   href: string
 }

@@ -5,16 +5,18 @@ import { useEffect, useRef } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useReducedMotion } from 'framer-motion'
 import { apps } from '../data/apps'
+import { useT } from '../i18n'
+import type { Dictionary } from '../i18n/en'
 
-/** Texto de anúncio de rota para leitores de ecrã. */
-export function routeAnnouncementText(pathname: string): string {
-  if (pathname === '/') return 'ONE G STUDIO — home'
+/** Texto de anúncio de rota para leitores de ecrã, no idioma ativo. */
+function routeAnnouncementText(pathname: string, t: Dictionary): string {
+  if (pathname === '/') return t.a11y.announceHome
   const match = /^\/apps\/([^/]+)$/.exec(pathname)
   if (match) {
-    const app = apps.find((a) => a.id === match[1])
-    return app ? `${app.nome} — app details` : 'App not found'
+    const app = apps.find((candidate) => candidate.id === match[1])
+    return app ? t.a11y.announceApp(app.nome) : t.a11y.announceNotFound
   }
-  return 'Page not found'
+  return t.a11y.announceNotFound
 }
 
 /** Anuncia numa região aria-live (elemento #sr-announcer criado no App). */
@@ -29,15 +31,16 @@ export function announce(message: string): void {
 
 /**
  * Efeitos de navegação:
- *  - com âncora (#apps…): rola suavemente até à secção, com novas tentativas
- *    porque as páginas são lazy-loaded;
+ *  - com âncora (#projects…): rola suavemente até à secção, com novas
+ *    tentativas porque as páginas são lazy-loaded;
  *  - sem âncora: rola para o topo e move o foco para o conteúdo principal
  *    (navegação por teclado previsível em SPA);
- *  - anuncia a rota em aria-live.
+ *  - anuncia a rota em aria-live, no idioma ativo.
  */
 export function useRouteEffects(): void {
   const location = useLocation()
   const reduced = useReducedMotion()
+  const t = useT()
   const isFirstRun = useRef(true)
 
   useEffect(() => {
@@ -55,7 +58,7 @@ export function useRouteEffects(): void {
       return
     }
 
-    announce(routeAnnouncementText(location.pathname))
+    announce(routeAnnouncementText(location.pathname, t))
 
     if (location.hash) {
       const id = location.hash.slice(1)
@@ -74,7 +77,8 @@ export function useRouteEffects(): void {
 
     window.scrollTo({ top: 0, behavior: 'auto' })
     document.getElementById('main')?.focus({ preventScroll: true })
-  }, [location.pathname, location.hash, reduced])
+    // t muda de identidade quando o idioma muda — reanuncia se necessário
+  }, [location.pathname, location.hash, reduced, t])
 }
 
 /**

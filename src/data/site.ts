@@ -1,16 +1,24 @@
 /**
  * Informação centralizada do estúdio.
- * Os canais de contacto são PLACEHOLDERS: apenas o GitHub é real.
- * Preencha os restantes quando existirem — nunca inventar contactos.
+ * OS TEXTOS VISÍVEIS vivem nos dicionários i18n (src/i18n/en.ts e pt.ts);
+ * aqui ficam apenas URLs e dados estruturais. Nada de inventar contactos —
+ * preencha os canais quando existirem (ver secção contact abaixo).
  */
 import type { ContactChannel, NavItem } from '../types'
 
 export const site = {
   name: 'ONE G STUDIO',
   shortName: 'ONE G',
-  tagline: 'One studio. Four apps. Zero cost.',
+
+  /** Tagline da marca — fica em inglês nos dois idiomas. */
+  tagline: 'GAMES • SOFTWARE • FREE TOOLS',
+
+  /** Descrição do estúdio (inglês — fallback de metadados estáticos). */
   description:
-    'Independent studio building free, offline-first, native Android apps for creators — games, tools and video, developed in the open on GitHub.',
+    'Independent studio building offline-first, native Android apps — games, tools and video, developed in the open on GitHub.',
+
+  /** Versão do site (mostrada no rodapé). */
+  siteVersion: 'v2.0',
 
   /**
    * DOMÍNIO DE PRODUÇÃO (placeholder).
@@ -29,16 +37,21 @@ export const site = {
   websiteRepo: 'criandojogodenovo-sketch/One-G-studio-',
   websiteRepoUrl: 'https://github.com/criandojogodenovo-sketch/One-G-studio-',
 
+  /** Navegação principal — rótulos vêm do dicionário (t.nav[item.id]). */
   nav: [
-    { label: 'Apps', href: '/#apps' },
-    { label: 'About', href: '/#about' },
-    { label: 'Contact', href: '/#contact' },
+    { id: 'projects', label: 'Projects', href: '/#projects' },
+    { id: 'studio', label: 'Studio', href: '/#studio' },
+    { id: 'contact', label: 'Contact', href: '/#contact' },
   ] as NavItem[],
 
+  /**
+   * Canais de contacto — APENAS o GitHub é real. Os canais futuros
+   * entram aqui quando existirem (o site mostra só os available:true).
+   */
   contact: {
-    heading: 'Get in touch',
+    /** Texto de introdução (EN) — substituído pelo dicionário i18n no Contact novo. */
     intro:
-      'The studio works in the open on GitHub. The fastest way to reach us is through the project repositories — open an issue, start a discussion or follow the development of each app.',
+      'The studio works in the open on GitHub. The fastest way to reach us is through the project repositories.',
     channels: [
       {
         id: 'github',
@@ -48,29 +61,12 @@ export const site = {
         url: 'https://github.com/criandojogodenovo-sketch',
         available: true,
       },
-      {
-        // PREENCHER quando existir um e-mail público de contacto.
-        id: 'email',
-        label: 'Email',
-        description: 'A direct email channel will be announced.',
-        value: 'Coming soon',
-        url: '',
-        available: false,
-      },
-      {
-        // PREENCHER quando existirem redes sociais oficiais.
-        id: 'social',
-        label: 'Social',
-        description: 'Official social channels will be announced.',
-        value: 'Coming soon',
-        url: '',
-        available: false,
-      },
     ] as ContactChannel[],
   },
 
   seo: {
-    defaultTitle: 'ONE G STUDIO — Free native Android apps for creators',
+    /** Título por defeito (inglês); em runtime o título vem do dicionário. */
+    defaultTitle: 'ONE G STUDIO — Native Android software, built in the open',
     titleSuffix: 'ONE G STUDIO',
   },
 }
