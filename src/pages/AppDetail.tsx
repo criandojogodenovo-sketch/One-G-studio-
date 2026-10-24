@@ -296,7 +296,7 @@ function ReqRow({ label, value }: { label: string; value: string }) {
     <tr className="border-b border-line last:border-b-0">
       <th
         scope="row"
-        className="w-48 border-r border-line px-4 py-3 text-left align-top font-mono text-xs font-normal uppercase tracking-[0.12em] text-meta"
+        className="w-32 whitespace-nowrap border-r border-line px-4 py-3 text-left align-top font-mono text-xs font-normal uppercase tracking-[0.12em] text-meta sm:w-48"
       >
         {label}
       </th>

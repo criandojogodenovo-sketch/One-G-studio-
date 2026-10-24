@@ -111,7 +111,7 @@
 
 @layer utilities {
   /* Marcas de canto (crop marks) — precisão tipo documento técnico.
-     Aplicar a um contentor com padding suficiente (>= 12px). */
+     Aplicar a um contentor com folga >= 6px à volta (ficam FORA da borda). */
   .crop-marks {
     position: relative;
   }
@@ -119,21 +119,21 @@
   .crop-marks::after {
     content: '';
     position: absolute;
-    width: 9px;
-    height: 9px;
+    width: 10px;
+    height: 10px;
     pointer-events: none;
   }
   .crop-marks::before {
-    top: -1px;
-    left: -1px;
-    border-top: 1px solid #4a4a52;
-    border-left: 1px solid #4a4a52;
+    top: -5px;
+    left: -5px;
+    border-top: 1px solid #6F6F78;
+    border-left: 1px solid #6F6F78;
   }
   .crop-marks::after {
-    right: -1px;
-    bottom: -1px;
-    border-right: 1px solid #4a4a52;
-    border-bottom: 1px solid #4a4a52;
+    right: -5px;
+    bottom: -5px;
+    border-right: 1px solid #6F6F78;
+    border-bottom: 1px solid #6F6F78;
   }
 }
 
