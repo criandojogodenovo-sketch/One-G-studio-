@@ -86,7 +86,8 @@ function AppDetailContent({ app }: { app: AppInfo }) {
           </div>
           <div className="mt-2 flex flex-wrap items-center gap-2">
             <span className="chip">{categoryLabels[app.categoria]}</span>
-            {app.status === 'soon' ? (
+            {/* Selo e botão seguem a POLÍTICA (status + URL válida), não só o status. */}
+            {!downloadEnabled ? (
               <span className="badge border-secondary/30 bg-secondary/[0.08] text-secondary">
                 <span
                   aria-hidden="true"

@@ -45,7 +45,9 @@ export const AppCard = memo(function AppCard({ app }: { app: AppInfo }) {
               <span aria-hidden="true" className={`h-1.5 w-1.5 rounded-full ${categoryDot[app.categoria]}`} />
               {categoryLabels[app.categoria]}
             </span>
-            {app.status === 'soon' ? (
+            {/* Selo e botão seguem a POLÍTICA (status + URL válida), não só o status:
+                um app 'available' com URL inválida continua "In development". */}
+            {!downloadEnabled ? (
               <span className="badge border-secondary/30 bg-secondary/[0.08] text-secondary">
                 <span
                   aria-hidden="true"
