@@ -1,0 +1,17 @@
+# Dependências
+node_modules/
+
+# Saída de build — o deploy usa dist/ gerado pelo Cloudflare Pages
+dist/
+
+# Segredos e ambiente — NUNCA commitar
+.env
+.env.*
+
+# Binários de apps — APKs/AABs vivem apenas em GitHub Releases, nunca neste repositório
+*.apk
+*.aab
+
+# Sistema / editor
+.DS_Store
+npm-debug.log*

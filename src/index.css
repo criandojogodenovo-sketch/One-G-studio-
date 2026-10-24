@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fundação mínima — o design system completo chega no commit de identidade visual. */
+@layer base {
+  body {
+    @apply bg-canvas text-ink antialiased;
+  }
+}
