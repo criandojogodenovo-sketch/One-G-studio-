@@ -1,0 +1,18 @@
+{
+  // Deploy do site do ONE G STUDIO como Cloudflare Worker (assets estáticos).
+  // Docs: https://developers.cloudflare.com/workers/static-assets/
+  //
+  // Publicar:
+  //   1) npm run build      -> gera ./dist
+  //   2) npx wrangler deploy -> publica o Worker com os assets
+  "name": "one-g-studio",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    // Saída de produção do Vite (npm run build).
+    "directory": "./dist",
+    // Rotas desconhecidas (ex.: /apps/blone) servem index.html —
+    // necessário porque o React Router usa browser history.
+    // Substitui o antigo public/_redirects do Cloudflare Pages.
+    "not_found_handling": "single-page-application"
+  }
+}

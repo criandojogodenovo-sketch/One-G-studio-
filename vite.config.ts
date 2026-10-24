@@ -2,7 +2,8 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 // Configuração do Vite — site estático do ONE G STUDIO.
-// Build: `npm run build` → saída em `dist/` (usada pelo Cloudflare Pages).
+// Build: `npm run build` → saída em `dist/` (publicada como assets do
+// Cloudflare Worker — ver wrangler.jsonc).
 export default defineConfig({
   plugins: [react()],
   build: {

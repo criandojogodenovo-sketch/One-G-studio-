@@ -14,7 +14,7 @@ export const site = {
 
   /**
    * DOMÍNIO DE PRODUÇÃO (placeholder).
-   * Quando o site estiver publicado (ex.: Cloudflare Pages), preencha aqui:
+   * Quando o site estiver publicado (ex.: Cloudflare Workers), preencha aqui:
    *   siteUrl: 'https://o-seu-dominio.com'
    * Isso ativa URLs canónicas e og:url/og:image absolutas (ver lib/seo.ts).
    * Enquanto vazio, o site não emite domínios inventados.

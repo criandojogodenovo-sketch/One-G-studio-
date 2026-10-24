@@ -6,7 +6,7 @@ engine, video editing and pixel art.
 
 This repository contains the complete source of the static site — built with
 **Vite + React 18 + TypeScript (strict) + Tailwind CSS + Framer Motion** and
-designed for **Cloudflare Pages**.
+deployed to **Cloudflare Workers** (static assets).
 
 - **Apps catalogue** with live search and category filters (All / Games / Tools / Video)
 - **App pages** (`/apps/:id`) with verified features, requirements and safe download policy
@@ -51,9 +51,9 @@ npm run preview         # serve o build localmente (http://localhost:4173)
 ## Project structure
 
 ```
+├── wrangler.jsonc              # config do Cloudflare Workers (assets + SPA)
 ├── index.html                  # shell + metadados estáticos (OG/Twitter)
 ├── public/
-│   ├── _redirects              # SPA fallback do Cloudflare Pages
 │   ├── favicon.svg             # marca 1+O+G (vetorial)
 │   ├── favicon-32.png          # gerado por scripts/generate-favicons.py
 │   ├── apple-touch-icon.png
@@ -151,22 +151,44 @@ the button stays disabled.
 > **Never commit `.apk` / `.aab` files to this repository.** Binaries live
 > only in GitHub Releases. The `.gitignore` already excludes them.
 
-## Deploying to Cloudflare Pages
+## Deploying to Cloudflare Workers
 
-1. Fork/push this repository to GitHub.
-2. In Cloudflare → **Workers & Pages → Create → Pages → Connect to Git**,
-   select this repository.
-3. Build settings:
-   - **Framework preset:** None (or Vite)
-   - **Build command:** `npm run build`
-   - **Build output directory:** `dist`
-   - **Environment variable:** `NODE_VERSION = 20` (`.nvmrc` is also committed)
-4. Deploy. SPA routing (deep links like `/apps/blone`) is handled by
-   `public/_redirects` → `/* /index.html 200`, copied into `dist/` on build.
+The site ships as a **Cloudflare Worker with static assets**, configured in
+`wrangler.jsonc` (project name `one-g-studio`, assets from `./dist`).
 
-Project limits (well below Cloudflare Pages maximums): every file is far
-under the 25 MiB per-file limit, the build produces ~30 files (limit 20,000)
-in a few seconds (limit 20 minutes).
+1. **Build** the production bundle:
+
+   ```bash
+   npm run build      # typecheck + vite build -> dist/
+   ```
+
+2. **Deploy** the Worker:
+
+   ```bash
+   npx wrangler deploy
+   ```
+
+   On the first machine you use, authenticate first with
+   `npx wrangler login` (opens the browser); afterwards `npx wrangler deploy`
+   is all it takes. CI/CD can use a `CLOUDFLARE_API_TOKEN` secret instead of
+   interactive login.
+
+**How SPA routing works now:** deep links like `/apps/blone` are handled by
+`assets.not_found_handling = "single-page-application"` in `wrangler.jsonc` —
+any path without a matching asset is served `index.html` (this replaces the
+old `public/_redirects` file from the Cloudflare Pages setup). Note that real
+files (JS/CSS/icons) are still served with their exact paths and correct
+cache headers by the Workers assets layer.
+
+Other notes:
+
+- `compatibility_date` is pinned to `2026-10-01`; bump it when you want to
+  adopt newer Workers runtime behavior.
+- Local check of the production bundle: `npm run preview` (serves `dist/`)
+  or `npx wrangler dev` (replicates the Worker + assets setup locally).
+- Project size stays far below the Workers static-assets limits: every file
+  is well under the 25 MiB per-file limit, and the build produces ~30 files
+  in a few seconds.
 
 After the site has a real domain, set `siteUrl` in `src/data/site.ts` —
 this activates absolute canonical/OG URLs (see `src/lib/seo.ts`).
