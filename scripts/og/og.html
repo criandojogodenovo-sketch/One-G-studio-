@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>og-image source</title>
+<style>
+  /* Fontes LOCAIS (file://) — nada de CDNs */
+  @font-face {
+    font-family: 'Space Grotesk';
+    src: url('../../node_modules/@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2') format('woff2-variations');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: block;
+  }
+  @font-face {
+    font-family: 'Inter';
+    src: url('../../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2') format('woff2-variations');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: block;
+  }
+  @font-face {
+    font-family: 'JetBrains Mono';
+    src: url('../../public/fonts/jetbrains-mono-latin-400-normal.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: block;
+  }
+  @font-face {
+    font-family: 'JetBrains Mono';
+    src: url('../../public/fonts/jetbrains-mono-latin-500-normal.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: block;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    background: #0A0A0B;
+    color: #F5F5F7;
+    font-family: 'Inter', sans-serif;
+    padding: 56px 64px;
+    display: flex;
+    flex-direction: column;
+  }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  .grotesk { font-family: 'Space Grotesk', sans-serif; }
+
+  /* Header */
+  .top { display: flex; align-items: center; justify-content: space-between; }
+  .brand { display: flex; align-items: center; gap: 16px; }
+  .brand .word { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 19px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .tagline { font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.2em; color: #8B8B95; }
+
+  .rule { border: 0; border-top: 1px solid #1F1F23; margin: 26px 0 0; }
+
+  /* Conteúdo */
+  .content { display: flex; gap: 56px; flex: 1; padding-top: 58px; }
+  .left { width: 660px; }
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 64px;
+    line-height: 1.04;
+    letter-spacing: -0.03em;
+    color: #F5F5F7;
+  }
+  h1 .dot { color: #FF7A18; }
+  .lead { margin-top: 28px; font-size: 18px; line-height: 1.6; color: #A8A8B2; max-width: 560px; }
+
+  /* Índice de build */
+  .index { position: relative; flex: 1; border-left: 1px solid #1F1F23; padding-left: 40px; }
+  .index .label { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: #8B8B95; }
+  .index ul { list-style: none; margin-top: 20px; }
+  .index li { display: flex; align-items: center; gap: 14px; padding: 13px 0; border-top: 1px solid #1F1F23; font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+  .index li:first-child { border-top: 0; }
+  .num { color: #6F6F78; width: 20px; }
+  .name { font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 16px; letter-spacing: -0.01em; color: #F5F5F7; flex: 1; }
+  .ver { color: #8B8B95; font-size: 12px; }
+  .st { display: flex; align-items: center; gap: 8px; color: #8B8B95; font-size: 11px; }
+  .st .d { width: 6px; height: 6px; border-radius: 50%; background: #6F6F78; }
+
+  /* Crop marks */
+  .cm { position: absolute; width: 12px; height: 12px; }
+  .cm.tl { top: -13px; left: -13px; border-top: 1px solid #4A4A52; border-left: 1px solid #4A4A52; }
+  .cm.br { right: -1px; bottom: -1px; border-right: 1px solid #4A4A52; border-bottom: 1px solid #4A4A52; }
+
+  /* Rodapé */
+  .bottom { border-top: 1px solid #1F1F23; padding-top: 22px; display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6F6F78; }
+  .bottom .org { display: flex; align-items: center; gap: 10px; }
+  .bottom .sq { width: 7px; height: 7px; background: #FF7A18; }
+</style>
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <svg width="40" height="40" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <path d="M32.9 11.3A15.5 15.5 0 1 0 39.5 24H31" stroke="#F5F5F7" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M16.2 19.8 21 15.4V33" stroke="#FF7A18" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="word">One&nbsp;G&nbsp;Studio</span>
+    </div>
+    <span class="tagline">GAMES • SOFTWARE • FREE TOOLS</span>
+  </header>
+  <hr class="rule" />
+
+  <div class="content">
+    <div class="left">
+      <h1>Native Android software,<br />built in the open<span class="dot">.</span></h1>
+      <p class="lead">A 3D modeler, a mobile game engine, a video editor and a pixel-art studio — offline-first, developed on GitHub.</p>
+    </div>
+    <nav class="index">
+      <span class="cm tl"></span><span class="cm br"></span>
+      <p class="label">Index — build status</p>
+      <ul>
+        <li><span class="num">01</span><span class="name">Blone</span><span class="ver">v0.4.0-fase3</span><span class="st"><span class="d"></span>dev</span></li>
+        <li><span class="num">02</span><span class="name">G.One VV</span><span class="ver">v0.9.6</span><span class="st"><span class="d"></span>dev</span></li>
+        <li><span class="num">03</span><span class="name">One Video G</span><span class="ver">v0.8.0</span><span class="st"><span class="d"></span>dev</span></li>
+        <li><span class="num">04</span><span class="name">Pixel One</span><span class="ver">v0.4.0-fase-3d</span><span class="st"><span class="d"></span>dev</span></li>
+      </ul>
+    </nav>
+  </div>
+
+  <footer class="bottom">
+    <span class="org"><span class="sq"></span>github.com/criandojogodenovo-sketch</span>
+    <span>open development</span>
+  </footer>
+</body>
+</html>
