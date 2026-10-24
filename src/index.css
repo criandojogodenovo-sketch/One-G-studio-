@@ -2,9 +2,186 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Fundação mínima — o design system completo chega no commit de identidade visual. */
+/* ==========================================================================
+   ONE G STUDIO — Design System
+   Paleta:  #0B0D10 fundo · #10141A painel · #141820 superfície
+            #FF7A18 primária (laranja) · #00D9FF secundária (ciano)
+            #E8EDF4 texto principal · #9AA6B5 texto secundário
+   Tipografia: Space Grotesk (display) + Inter (texto)
+   Uso: laranja é a cor primária; ciano é secundária/acento. Vidro
+   (.glass) apenas em elementos flutuantes — nunca em todas as seções.
+   ========================================================================== */
+
 @layer base {
+  html {
+    scroll-behavior: smooth;
+    /* âncoras aterrissam abaixo do header fixo (h-16 + folga) */
+    scroll-padding-top: 5.5rem;
+  }
   body {
-    @apply bg-canvas text-ink antialiased;
+    @apply bg-canvas font-sans text-ink antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    @apply bg-primary text-canvas;
+  }
+  /* Foco visível e consistente em todo o site (navegação por teclado) */
+  :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+    outline: 2px solid #00d9ff;
+    outline-offset: 2px;
+  }
+  /* Scrollbar discreta (WebKit) */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0b0d10;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #232b36;
+    border-radius: 999px;
+    border: 2px solid #0b0d10;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #ff7a18;
+  }
+}
+
+@layer components {
+  /* Layout de conteúdo centralizado */
+  .container-site {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Superfície de vidro — APENAS elementos flutuantes (header, menu mobile) */
+  .glass {
+    @apply border-white/10 bg-canvas/70 backdrop-blur-md;
+  }
+
+  /* Superfície de card padrão */
+  .card-surface {
+    @apply rounded-2xl border-white/[0.08] bg-surface/60;
+  }
+
+  /* Reflexo interno superior sutil — combinar com .card-sheen */
+  .card-sheen {
+    position: relative;
+  }
+  .card-sheen::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    border-radius: 2rem 2rem 0 0;
+    background: linear-gradient(90deg, transparent, rgba(232, 237, 244, 0.14), transparent);
+    pointer-events: none;
+  }
+
+  /* Botões — alvo de toque >= 44px (min-h-11) */
+  .btn {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-all duration-300 ease-sharp;
+  }
+  .btn-primary {
+    @apply bg-primary text-[#160B02];
+    box-shadow:
+      0 8px 28px -10px rgba(255, 122, 24, 0.55),
+      inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+  .btn-primary:hover:not(:disabled) {
+    @apply -translate-y-0.5 brightness-110;
+  }
+  .btn-primary:active:not(:disabled) {
+    @apply translate-y-0 brightness-95;
+  }
+  .btn-primary:disabled {
+    @apply cursor-not-allowed opacity-40 shadow-none;
+  }
+  .btn-ghost {
+    @apply border-white/15 bg-white/[0.03] text-ink;
+  }
+  .btn-ghost:hover:not(:disabled) {
+    @apply -translate-y-0.5 border-primary/50 bg-primary/[0.08];
+  }
+  .btn-ghost:disabled {
+    @apply cursor-not-allowed opacity-40;
+  }
+
+  /* Chips e badges */
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-medium text-mist;
+  }
+  .badge {
+    @apply inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider;
+  }
+
+  /* Kicker de seção (etiqueta pequena acima dos títulos) */
+  .kicker {
+    @apply mb-4 inline-flex items-center gap-2.5 text-xs font-semibold uppercase tracking-[0.22em] text-primary;
+  }
+  .kicker::before {
+    content: '';
+    @apply h-px w-8 bg-gradient-to-r from-primary to-transparent;
+  }
+
+  /* Texto com gradiente da marca */
+  .text-brand-gradient {
+    @apply bg-brand-gradient bg-clip-text text-transparent;
+  }
+
+  /* Link para saltar para o conteúdo (acessibilidade) */
+  .skip-link {
+    @apply fixed left-4 top-4 z-[100] -translate-y-24 rounded-lg bg-primary px-4 py-2.5 text-sm font-bold text-[#160B02] transition-transform duration-200 ease-sharp focus:translate-y-0;
+  }
+}
+
+@layer utilities {
+  /* Grelha geométrica com desvanecimento radial (hero / detalhe) */
+  .bg-grid-mask {
+    background-image:
+      linear-gradient(rgba(232, 237, 244, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(232, 237, 244, 0.05) 1px, transparent 1px);
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 32%, black 25%, transparent 78%);
+    mask-image: radial-gradient(ellipse 85% 75% at 50% 32%, black 25%, transparent 78%);
+  }
+
+  /* Luz ambiente por gradiente radial — sem `filter: blur`, barato na GPU */
+  .ambient-primary {
+    background: radial-gradient(closest-side, rgba(255, 122, 24, 0.16), transparent 72%);
+  }
+  .ambient-secondary {
+    background: radial-gradient(closest-side, rgba(0, 217, 255, 0.12), transparent 72%);
+  }
+
+  /* Ruído sutil — aplicar num container `relative overflow-hidden` */
+  .noise::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Linha separadora de hairline */
+  .hairline-t {
+    @apply border-t border-white/[0.07];
+  }
+}
+
+/* Respeitar prefers-reduced-motion: remover animações/transições ambientais.
+   As animações do Framer Motion são cobertas por <MotionConfig reducedMotion="user">. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

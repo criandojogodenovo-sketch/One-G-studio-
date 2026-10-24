@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108" role="img" aria-label="Pixel One icon">
+  <!-- Recreação fiel do ícone adaptativo oficial do Pixel One:
+       grelha 3x3 de píxeis em laranja/cinza sobre fundo escuro (#141414).
+       Cores exatas do vetor original (app/src/main/res/drawable/ic_launcher_foreground.xml). -->
+  <rect width="108" height="108" fill="#141414"/>
+  <path fill="#F57C00" d="M34 34h12v12H34z"/>
+  <path fill="#E65100" d="M48 34h12v12H48z"/>
+  <path fill="#4A4A4A" d="M62 34h12v12H62z"/>
+  <path fill="#E65100" d="M34 48h12v12H34z"/>
+  <path fill="#FFA726" d="M48 48h12v12H48z"/>
+  <path fill="#F57C00" d="M62 48h12v12H62z"/>
+  <path fill="#4A4A4A" d="M34 62h12v12H34z"/>
+  <path fill="#F57C00" d="M48 62h12v12H48z"/>
+  <path fill="#E65100" d="M62 62h12v12H62z"/>
+</svg>
