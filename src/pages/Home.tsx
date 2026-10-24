@@ -1,6 +1,6 @@
 import { Hero } from '../components/Hero'
 import { Projects } from '../components/Projects'
-import { About } from '../components/About'
+import { Studio } from '../components/Studio'
 import { Contact } from '../components/Contact'
 import { usePageMeta } from '../lib/seo'
 import { site } from '../data/site'
@@ -13,7 +13,7 @@ export default function Home() {
     <>
       <Hero />
       <Projects />
-      <About />
+      <Studio />
       <Contact />
     </>
   )

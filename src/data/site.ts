@@ -4,7 +4,7 @@
  * aqui ficam apenas URLs e dados estruturais. Nada de inventar contactos —
  * preencha os canais quando existirem (ver secção contact abaixo).
  */
-import type { ContactChannel, NavItem } from '../types'
+import type { NavItem } from '../types'
 
 export const site = {
   name: 'ONE G STUDIO',
@@ -45,24 +45,10 @@ export const site = {
   ] as NavItem[],
 
   /**
-   * Canais de contacto — APENAS o GitHub é real. Os canais futuros
-   * entram aqui quando existirem (o site mostra só os available:true).
+   * Canais de contacto — apenas o GitHub existe; o Contact novo lê o
+   * githubUrl acima e os textos do dicionário. Canais futuros (email,
+   * redes) entram AQUI quando existirem de verdade — nunca antes.
    */
-  contact: {
-    /** Texto de introdução (EN) — substituído pelo dicionário i18n no Contact novo. */
-    intro:
-      'The studio works in the open on GitHub. The fastest way to reach us is through the project repositories.',
-    channels: [
-      {
-        id: 'github',
-        label: 'GitHub',
-        description: 'Studio profile — all projects and releases.',
-        value: 'criandojogodenovo-sketch',
-        url: 'https://github.com/criandojogodenovo-sketch',
-        available: true,
-      },
-    ] as ContactChannel[],
-  },
 
   seo: {
     /** Título por defeito (inglês); em runtime o título vem do dicionário. */

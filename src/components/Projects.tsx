@@ -8,6 +8,7 @@ import { isDownloadEnabled } from '../utils/download'
 import { useT, useLocalizedValue } from '../i18n'
 import type { Dictionary } from '../i18n/en'
 import { AppIcon } from './AppIcon'
+import { SectionHeading } from './SectionHeading'
 import { EASE_SHARP, fadeUp, viewportOnce } from '../utils/animation'
 
 type Filter = 'all' | AppCategory
@@ -51,27 +52,7 @@ export function Projects() {
       className="scroll-mt-24 border-b border-line"
     >
       <div className="container-site py-16 sm:py-20">
-        {/* Cabeçalho de secção numerado — '01 — Projects' */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOnce}
-          className="flex items-baseline gap-4"
-        >
-          <span aria-hidden="true" className="font-mono text-sm text-accent">
-            01
-          </span>
-          <span aria-hidden="true" className="font-mono text-sm text-faint">
-            —
-          </span>
-          <h2
-            id="projects-title"
-            className="font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl"
-          >
-            {t.projects.sectionTitle}
-          </h2>
-        </motion.div>
+        <SectionHeading index="01" title={t.projects.sectionTitle} id="projects-title" />
 
         {/* Controlos: pesquisa com sublinhado + filtros em texto mono */}
         <motion.div

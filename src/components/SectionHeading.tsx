@@ -2,24 +2,32 @@ import { motion } from 'framer-motion'
 import { fadeUp, viewportOnce } from '../utils/animation'
 
 interface SectionHeadingProps {
-  kicker: string
+  /** Número da secção em mono (ex.: '01'). */
+  index: string
   title: string
-  description?: string
+  /** id para aria-labelledby da <section> envolvente. */
+  id?: string
 }
 
-/** Cabeçalho de seção com revelação ao rolar (kicker + título + descrição). */
-export function SectionHeading({ kicker, title, description }: SectionHeadingProps) {
+/** Cabeçalho de secção numerada — "01 — Projects" (índice mono em laranja). */
+export function SectionHeading({ index, title, id }: SectionHeadingProps) {
   return (
     <motion.div
       variants={fadeUp}
       initial="hidden"
       whileInView="visible"
       viewport={viewportOnce}
-      className="max-w-2xl"
+      className="flex items-baseline gap-4"
     >
-      <p className="kicker">{kicker}</p>
-      <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">{title}</h2>
-      {description && <p className="mt-4 text-base leading-relaxed text-mist">{description}</p>}
+      <span aria-hidden="true" className="font-mono text-sm text-accent">
+        {index}
+      </span>
+      <span aria-hidden="true" className="font-mono text-sm text-faint">
+        —
+      </span>
+      <h2 id={id} className="font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+        {title}
+      </h2>
     </motion.div>
   )
 }
